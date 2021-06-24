@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useState, FormEvent } from 'react';
+import { toast } from "react-hot-toast";
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -35,6 +36,22 @@ const Home = () => {
 
     if (!roomRef.exists()) {
       alert('Room does not exists.')
+      return;
+    }
+
+    if (roomRef.val().endedAt) {
+      toast.error("A sala que você está tentando entrar já foi encerrada!", {
+        style: {
+          border: '1px solid #835AFD',
+          padding: '18px',
+          color: '#835AFD',
+          fontSize: '20px'
+        },
+        iconTheme: {
+          primary: '#835AFD',
+          secondary: '#FFFAEE',
+        }
+      })
       return;
     }
 
