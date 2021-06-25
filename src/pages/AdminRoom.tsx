@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 
 import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
+import checkImg from '../assets/images/check.svg';
+import answerImg from '../assets/images/answer.svg';
 
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
@@ -33,6 +35,18 @@ const AdminRoom = () => {
     })
 
     history.push('/')
+  }
+
+  const handleCheckQuestionAsAnswered = async (questionId: string) => {
+    await database.ref(`/rooms/${roomId}/questions/${questionId}`).update({
+      isAnswered: true
+    })
+  }
+
+  const handleHighlightQuestion = async (questionId: string) => {
+    await database.ref(`/rooms/${roomId}/questions/${questionId}`).update({
+      isHighlighted: true
+    })
   }
 
   const handleDeleteQuestion = async (questionId: string) => {
@@ -72,7 +86,7 @@ const AdminRoom = () => {
 
         <main>
           <div className="room-title">
-            <h1>Sala {title}</h1>
+            <h1>{title}</h1>
             { questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
           </div>
 
@@ -83,7 +97,25 @@ const AdminRoom = () => {
                   key={value.id}
                   content={value.content} 
                   author={value.author}
+                  isAnswered={value.isAnswered}
+                  isHighlighted={value.isHighlighted}
                 >
+                  {!value.isAnswered && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleCheckQuestionAsAnswered(value.id)}
+                      >
+                        <img src={checkImg} alt="Marcar pergunta como respondida" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleHighlightQuestion(value.id)}
+                      >
+                        <img src={answerImg} alt="Dar destaque à pergunta" />
+                      </button>
+                    </>
+                  )}
                   <button
                     type="button"
                     onClick={() => handleDeleteQuestion(value.id)}
