@@ -2,11 +2,11 @@
   height: 40px;
   border-radius: 8px;
   overflow: hidden;
-  
-  background: #FFF;
+
+  background: var(--body);
   border: 1px solid #835afd;
   cursor: pointer;
-  
+
   display: flex;
 
   div {
@@ -26,5 +26,12 @@
     width: 230px;
     font-size: 14px;
     font-weight: 500;
+    color: var(--text);
+  }
+}
+
+.theme {
+  span {
+    color: var(--text-dark-theme);
   }
 }

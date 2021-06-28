@@ -1,21 +1,27 @@
 // import { FormEvent, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import cx from 'classnames';
 
 import logoImg from '../assets/images/logo.svg';
+import logoWhiteImg from '../assets/images/logoWhite.svg';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
 
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
+import { Toggle } from "../components/Toggle";
+
 // import { useAuth } from "../hooks/useAuth";
+import { useRoom } from '../hooks/useRoom';
 
 import '../styles/room.scss';
 import { Question } from "../components/Question";
 
-import { useRoom } from '../hooks/useRoom'
 import { database } from "../services/firebase";
+import { useContext } from "react";
+import { ToggleContext } from "../context/ToggleContext";
 
 interface IRoomParams {
   id: string;
@@ -28,6 +34,8 @@ const AdminRoom = () => {
   const roomId = params.id;
 
   const { questions, title } = useRoom(roomId)
+
+  const { theme } = useContext(ToggleContext)
 
   const handleEndRoom = async () => {
     await database.ref(`/rooms/${roomId}`).update({
@@ -71,15 +79,18 @@ const AdminRoom = () => {
   
   return (
     <>
-      <div id="page-room">
+      <div id="page-room" className={cx(
+        { theme: theme }
+      )}>
         <header>
           <div className="content">
-            <img src={logoImg} alt="Letmeask" />
+            <img src={theme ? logoWhiteImg : logoImg} alt="Letmeask" />
+            <Toggle />
             <div>
               <div onClick={toastClick}>
-                <RoomCode code={roomId}/>
+                <RoomCode code={roomId} theme={theme}/>
               </div>
-              <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+              <Button isOutlined onClick={handleEndRoom} theme={theme}>Encerrar sala</Button>
             </div>
           </div>
         </header>

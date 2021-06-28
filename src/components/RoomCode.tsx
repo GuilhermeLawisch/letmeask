@@ -1,8 +1,10 @@
+import cx from 'classnames';
 import copySvg from "../assets/images/copy.svg";
 import '../styles/room-code.scss';
 
 interface IRoomCodeProps {
   code: string;
+  theme: boolean;
 }
 
 const RoomCode = (props: IRoomCodeProps) => {
@@ -11,7 +13,10 @@ const RoomCode = (props: IRoomCodeProps) => {
   }
 
   return (
-    <button className="room-code" onClick={copyRoomCodeToClipboard}>
+    <button className={cx(
+      "room-code",
+      { theme: props.theme }
+    )} onClick={copyRoomCodeToClipboard}>
       <div>
         <img src={copySvg} alt="Copy room code" />
       </div>

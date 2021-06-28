@@ -1,21 +1,26 @@
-//import { useContext } from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
+import logoWhiteImg from '../assets/images/logoWhite.svg';
 
 import { Button } from '../components/Button';
+import { Toggle } from '../components/Toggle';
 import { database } from '../services/firebase';
-
+import cx from 'classnames';
 import '../styles/auth.scss';
+
+import { ToggleContext } from '../context/ToggleContext';
 
 const NewRoom = () => {
   const history = useHistory()
   const { user } = useAuth()
   const [newRoom, setNemRoom] = useState('')
+  
+  const { theme } = useContext(ToggleContext)
 
   const handleCreateNewRoom = async (event: FormEvent) => {
     event.preventDefault()
@@ -43,9 +48,13 @@ const NewRoom = () => {
           <p>Tire as dúvidas da sua audiência em tempo-real</p>
         </aside>
 
-        <main>
+        <main className={cx(
+          'main',
+          { theme: theme }
+        )}>
           <div className="main-content">
-            <img src={logoImg} alt="Letmeask" />
+            <Toggle />
+            <img src={theme ? logoWhiteImg : logoImg} alt="Letmeask" />
             <h2>Criar nova sala</h2>
             <form onSubmit={handleCreateNewRoom}>
               <input 

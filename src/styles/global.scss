@@ -1,3 +1,28 @@
+:root {
+  --body-white: #f8f8f8;
+  --body-dark: #282a36;
+
+  --title-light-theme: #000;
+  --title-dark-theme: #fff;
+
+  --text-light-theme: #29292e;
+  --text-dark-theme: #f8f8f2;
+
+  --input-text-dark-theme: #6272a4;
+  --input-text-light-theme: #f8f8f2;
+
+  --body: var(--body-white);
+  --title: var(--title-light-theme);
+  --text: var(--text-light-theme);
+  --input-text: var(--input-text-light-theme);
+  --gray-light: #a8a8b3;
+  --gray-dark: #696970;
+  --purple: #835afd;
+  --purple-dracula: #bd93f9;
+  --pink: #e559f9;
+  --red: #ea4335;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +30,8 @@
 }
 
 body {
-  background: var(#f8f8f8);
-  color: #29292e;
+  background: var(--body);
+  color: var(--text);
 }
 
 body,
@@ -14,4 +39,5 @@ input,
 button,
 textarea {
   font: 400 16px 'Roboto', sans-serif;
+  color: var(--body);
 }

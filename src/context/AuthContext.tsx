@@ -12,11 +12,11 @@ interface IAuthContext {
   SignInWithGoogle: () => Promise<void>;
 }
 
-export const AuthContext = createContext({} as IAuthContext);
-
 interface IProps {
   children: ReactNode;
 }
+
+export const AuthContext = createContext({} as IAuthContext);
 
 const AuthContextProvider = (props: IProps) => {
   const [user, setUser] = useState<IUser>()

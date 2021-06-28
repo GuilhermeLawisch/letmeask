@@ -6,20 +6,23 @@ import { AdminRoom } from './pages/AdminRoom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import { AuthContextProvider } from './context/AuthContext'
+import { AuthContextProvider } from './context/AuthContext';
+import { ToggleContextProvider } from "./context/ToggleContext";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <AuthContextProvider>
-          <Toaster />
-          <Switch>
-            <Route path="/" exact component={Home}/>
-            <Route path="/rooms/new" component={NewRoom}/>
-            <Route path="/rooms/:id" component={Room} />
-            <Route path="/admin/rooms/:id" component={AdminRoom} />
-          </Switch>
+          <ToggleContextProvider>
+            <Toaster />
+            <Switch>
+              <Route path="/" exact component={Home}/>
+              <Route path="/rooms/new" component={NewRoom}/>
+              <Route path="/rooms/:id" component={Room} />
+              <Route path="/admin/rooms/:id" component={AdminRoom} />
+            </Switch>
+          </ToggleContextProvider>
         </AuthContextProvider>
       </BrowserRouter>
     </>
